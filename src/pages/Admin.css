@@ -1,0 +1,193 @@
+.admin-page {
+  background: linear-gradient(180deg, #00a1de 0%, #ffd100 50%, #20603d 100%);
+  min-height: 100vh;
+  color: #f6f7fa;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Izuba rya Rwanda hejuru */
+.admin-page::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #ffd100 40%, transparent 41%);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ffd100;
+  animation: rotateSun 12s linear infinite;
+}
+
+@keyframes rotateSun {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* CONTROLS BAR */
+.admin-controls {
+  display: flex;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* GRID */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.admin-card {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 15px;
+  box-shadow: 0 0 12px #ffd100;
+  text-align: center;
+  padding-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.admin-card:hover {
+  transform: scale(1.05);
+}
+
+.admin-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.admin-card h3 {
+  margin: 10px 0 5px;
+  color: #00a1de;
+}
+
+.admin-card p {
+  margin: 0 0 5px;
+  color: #42c763;
+}
+
+/* DELETE BUTTON */
+.admin-card button {
+  margin: 10px;
+  width: calc(100% - 20px);
+  padding: 8px;
+  background: #e53935; /* red */
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.admin-card button:hover {
+  background: #0e57c5; /* lighter red on hover */
+  transform: scale(1.05);
+}
+
+/* GREEN BUTTONS */
+.voting,
+.logout,
+.reset,
+.candidate {
+  color: white;
+  background-color: #42c763; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 18px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.voting:hover,
+.logout:hover,
+.reset:hover,
+.candidate:hover {
+  background-color: #2e8b57; /* darker green on hover */
+  transform: scale(1.05);
+}
+
+/* WINNER SECTION */
+.winner-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 12px #68a6b9;
+  color: #21c0b8;
+  font-weight: bold;
+  animation: glowWinner 3s infinite alternate;
+}
+
+@keyframes glowWinner {
+  from { box-shadow: 0 0 10px #42c763; }
+  to { box-shadow: 0 0 20px #ffd100; }
+}
+.logout{
+    color: white;
+  background-color: #ee0a0a; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  
+}
+.voting{
+      color: white;
+  background-color: #220ceb; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.cnd{
+      color: white;
+  background-color: #ee0a0a; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.reset{
+      color: white;
+  background-color: #ee0a0a; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.winner{
+      color: white;
+  background-color: #05490e; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}

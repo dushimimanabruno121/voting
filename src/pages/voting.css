@@ -1,0 +1,132 @@
+.voting-page {
+  background: #0f0f10;
+  min-height: 100vh;
+  color: white;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+.vote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #151515;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.vote-header h2 {
+  margin: 0;
+  color: #00ff00;
+}
+
+.vote-header p {
+  margin: 5px 0 0;
+  color: #bbb;
+}
+
+.vote-header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.vote-header-buttons button:first-child {
+  background: #9a9da3;
+  color: white;
+}
+
+.vote-header-buttons button:last-child {
+  background: #333;
+  color: white;
+}
+
+/* WELCOME */
+.welcome {
+  margin: 20px 0;
+  text-align: center;
+  color: #00ff00;
+}
+
+/* CARDS GRID */
+.vote-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.vote-card {
+  background: #151515;
+  border-radius: 15px;
+  overflow: hidden;
+  padding-bottom: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px #00c853;
+}
+
+.vote-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  background: black;
+}
+
+.vote-card-content {
+  padding: 10px;
+}
+
+.vote-card h3 {
+  margin: 10px 0 5px;
+  color: white;
+}
+
+.vote-card .post {
+  color: #00c853;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.vote-card p {
+  margin: 0 0 5px;
+  color: #bbb;
+}
+
+.vote-card button {
+  margin-top: 10px;
+  width: calc(100% - 20px);
+  padding: 8px;
+  background: #00c853;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.vote-card button:disabled {
+  background: #444;
+  cursor: not-allowed;
+}
+.winner-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #111;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 12px gold;
+  color: rgb(20, 164, 231);
+  font-weight: bold;
+}
+.admin{
+      color: white;
+  background-color: #ee0a0a; /* green */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
