@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Voting.css";
 
@@ -6,14 +6,24 @@ export default function Voting({ candidates, setCandidates }) {
   const navigate = useNavigate();
   const currentUser = localStorage.getItem("user");
 
+  // Redirect if no user
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
+
+  // Load candidates
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("candidates")) || [];
     setCandidates(data);
   }, [setCandidates]);
 
-  const vote = (candidate) => {
-    let votedUsers = JSON.parse(localStorage.getItem("votedUsers")) || {};
+  // Load votedUsers ONCE
+  const votedUsers =
+    JSON.parse(localStorage.getItem("votedUsers")) || {};
 
+  const vote = (candidate) => {
     if (!votedUsers[currentUser]) {
       votedUsers[currentUser] = {};
     }
@@ -39,17 +49,20 @@ export default function Voting({ candidates, setCandidates }) {
     navigate("/");
   };
 
-  const getWinner = () => {
+  // OPTIMIZED WINNER (runs only when candidates change)
+  const winner = useMemo(() => {
     if (candidates.length === 0) return null;
     return candidates.reduce((prev, current) =>
       prev.votes > current.votes ? prev : current
     );
-  };
+  }, [candidates]);
 
-  const winnerAnnounced = localStorage.getItem("winnerAnnounced") === "true";
+  const winnerAnnounced =
+    localStorage.getItem("winnerAnnounced") === "true";
 
   return (
     <div className="voting-page">
+      {/* HEADER */}
       <div className="vote-header">
         <div>
           <h2>⚡ Voting Dashboard</h2>
@@ -57,28 +70,39 @@ export default function Voting({ candidates, setCandidates }) {
         </div>
 
         <div className="vote-header-buttons">
-          <button onClick={() => navigate("/admin-login")} className="admin">⚙ Admin</button>
+          <button
+            onClick={() => navigate("/admin-login")}
+            className="admin"
+          >
+            ⚙ Admin
+          </button>
           <button onClick={logout}>Logout</button>
         </div>
       </div>
 
-      <h2 className="vote-welcome">
+      {/* WELCOME */}
+      <h2 className="welcome">
         Welcome, {currentUser?.toUpperCase()} 👋
       </h2>
 
+      {/* CARDS */}
       <div className="vote-cards-container">
         {candidates.map((c) => {
-          const votedUsers = JSON.parse(localStorage.getItem("votedUsers")) || {};
-          const alreadyVoted = votedUsers[currentUser]?.[c.post] || false;
+          const alreadyVoted =
+            votedUsers[currentUser]?.[c.post] || false;
 
           return (
             <div key={c.id} className="vote-card">
               <img src={c.image} alt={c.name} />
               <div className="vote-card-content">
                 <h3>{c.name}</h3>
-                <p className="vote-post">{c.post}</p>
+                <p className="post">{c.post}</p>
                 <p>Votes: {c.votes}</p>
-                <button onClick={() => vote(c)} disabled={alreadyVoted}>
+
+                <button
+                  onClick={() => vote(c)}
+                  disabled={alreadyVoted}
+                >
                   👍 {alreadyVoted ? "Voted" : "Vote"}
                 </button>
               </div>
@@ -87,11 +111,13 @@ export default function Voting({ candidates, setCandidates }) {
         })}
       </div>
 
+      {/* WINNER */}
       {winnerAnnounced && (
         <div className="winner-section">
-          {getWinner() ? (
+          {winner ? (
             <h2>
-              🏆 Winner: {getWinner().name} ({getWinner().post}) with {getWinner().votes} votes
+              🏆 Winner: {winner.name} ({winner.post}) with{" "}
+              {winner.votes} votes
             </h2>
           ) : (
             <h2>No winner yet</h2>
@@ -101,4 +127,3 @@ export default function Voting({ candidates, setCandidates }) {
     </div>
   );
 }
-

@@ -38,7 +38,7 @@
   text-align: center;
   background: linear-gradient(90deg, #00a1de, #ffd100, #20603d);
   background-size: 300%;
-
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: flagColors 5s infinite linear;
   margin-bottom: 20px;
