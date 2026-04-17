@@ -7,6 +7,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [nationalId, setNationalId] = useState("");
   const [error, setError] = useState("");
+  const [showForgot, setShowForgot] = useState(false);
+  const [resetPassword, setResetPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -25,7 +27,7 @@ export default function Login() {
       return;
     }
 
-    // Extract birthdate from ID
+    // Age check
     const birthStr = nationalId.substring(0, 8);
     const birthDate = new Date(
       birthStr.substring(0, 4),
@@ -49,6 +51,30 @@ export default function Login() {
     navigate("/vote");
   };
 
+  const handleForgotPassword = () => {
+    if (!username.trim() || !nationalId.trim() || !resetPassword.trim()) {
+      setError("⚠️ Please fill all fields");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const userIndex = users.findIndex(
+      (u) => u.username === username && u.nationalId === nationalId
+    );
+
+    if (userIndex === -1) {
+      setError("❌ User not found");
+      return;
+    }
+
+    users[userIndex].password = resetPassword;
+    localStorage.setItem("users", JSON.stringify(users));
+    setError("✅ Password reset successful. Please login.");
+    setShowForgot(false);
+    setPassword("");
+    setResetPassword("");
+  };
+
   return (
     <div className="login-container">
       <h1 className="animated-title">WELCOME TO ONLINE VOTING SYSTEM</h1>
@@ -61,9 +87,27 @@ export default function Login() {
         <input type="text" placeholder="National ID (16 digits)" value={nationalId}
           onChange={(e) => setNationalId(e.target.value)} />
         <button onClick={handleLogin}>Login</button>
+
         <p onClick={() => navigate("/register")} style={{ cursor: "pointer", marginTop: "10px" }}>
           Don't have account? Register
         </p>
+        <p onClick={() => setShowForgot(true)} style={{ cursor: "pointer", marginTop: "10px", color: "blue" }}>
+          Forgot Password?
+        </p>
+
+        {showForgot && (
+          <div className="forgot-box">
+            <h3>Reset Password</h3>
+            <input type="text" placeholder="Username" value={username}
+              onChange={(e) => setUsername(e.target.value)} />
+            <input type="text" placeholder="National ID" value={nationalId}
+              onChange={(e) => setNationalId(e.target.value)} />
+            <input type="password" placeholder="New Password" value={resetPassword}
+              onChange={(e) => setResetPassword(e.target.value)} />
+            <button onClick={handleForgotPassword}>Reset</button>
+          </div>
+        )}
+
         {error && <div className="error">{error}</div>}
       </div>
     </div>
